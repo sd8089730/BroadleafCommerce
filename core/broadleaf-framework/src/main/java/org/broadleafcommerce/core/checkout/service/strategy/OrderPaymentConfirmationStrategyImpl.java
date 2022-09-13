@@ -41,11 +41,11 @@ import org.broadleafcommerce.core.payment.service.OrderToPaymentRequestDTOServic
 import org.broadleafcommerce.core.payment.service.SecureOrderPaymentService;
 import org.broadleafcommerce.core.workflow.ProcessContext;
 import org.broadleafcommerce.core.workflow.WorkflowException;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import javax.annotation.Resource;
 
 /**
@@ -233,11 +233,11 @@ public class OrderPaymentConfirmationStrategyImpl implements OrderPaymentConfirm
      */
     protected String constructExpirationDate(Integer expMonth, Integer expYear) {
         SimpleDateFormat sdf = new SimpleDateFormat(getGatewayExpirationDateFormat());
-        DateTime exp = new DateTime()
+        LocalDateTime exp = LocalDateTime.now()
                 .withYear(expYear)
-                .withMonthOfYear(expMonth);
+                .withMonth(expMonth);
 
-        return sdf.format(exp.toDate());
+        return sdf.format(exp.toLocalDate());
     }
 
     protected String getGatewayExpirationDateFormat(){
