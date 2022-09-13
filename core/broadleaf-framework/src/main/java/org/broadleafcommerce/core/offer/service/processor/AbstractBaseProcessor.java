@@ -501,8 +501,7 @@ public abstract class AbstractBaseProcessor implements BaseProcessor {
     }
 
     protected Calendar dateToCalendar(Date date, TimeZone offerTimeZone) {
-        ZonedDateTime offerDateTimeZone = ZonedDateTime.ofInstant(Instant.from((TemporalAccessor) date), ZoneId.of(String.valueOf(offerTimeZone)));
-        LocalDateTime offerDateTime = LocalDateTime.ofInstant(Instant.from((TemporalAccessor) date), ZoneId.from(offerDateTimeZone));
+        LocalDateTime offerDateTime = LocalDateTime.ofInstant(Instant.from((TemporalAccessor) date), ZoneId.from((TemporalAccessor) offerTimeZone));
 
         Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone(String.valueOf(offerTimeZone)));
 

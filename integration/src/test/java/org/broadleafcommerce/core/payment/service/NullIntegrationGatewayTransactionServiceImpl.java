@@ -35,6 +35,7 @@ import org.broadleafcommerce.common.vendor.service.type.ServiceStatusType;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.Map;
@@ -160,8 +161,8 @@ public class NullIntegrationGatewayTransactionServiceImpl extends AbstractPaymen
                 String expYear = parsedDate[1];
                 try {
                     Date expirationDate = new Date(Integer.parseInt("20" + expYear), Integer.parseInt(expMonth), 1, 0, 0);
-                    expirationDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-                    validDate = expirationDate.toInstant().isAfter(Instant.now());
+                    LocalDateTime expDate = expirationDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+                    validDate = expDate.isAfter(LocalDateTime.now());
                     validDateFormat = true;
                 } catch (Exception e) {
                     //invalid date format
