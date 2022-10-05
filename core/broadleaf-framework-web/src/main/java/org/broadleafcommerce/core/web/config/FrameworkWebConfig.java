@@ -23,10 +23,6 @@ import org.broadleafcommerce.common.web.filter.FilterOrdered;
 import org.broadleafcommerce.core.rule.RuleDTOConfig;
 import org.broadleafcommerce.core.web.cookie.CookieRuleFilter;
 import org.broadleafcommerce.core.web.cookie.CookieRuleRequestProcessor;
-import org.broadleafcommerce.core.web.seo.BasicSeoPropertyGeneratorImpl;
-import org.broadleafcommerce.core.web.seo.SeoPropertyGenerator;
-import org.broadleafcommerce.presentation.condition.ConditionalOnTemplating;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ListFactoryBean;
@@ -34,8 +30,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.servlet.filter.OrderedRequestContextFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.mobile.device.DeviceResolver;
-import org.springframework.mobile.device.LiteDeviceResolver;
 import org.springframework.web.filter.RequestContextFilter;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,19 +51,6 @@ public class FrameworkWebConfig {
         OrderedRequestContextFilter filter = new OrderedRequestContextFilter();
         filter.setOrder(FilterOrdered.PRE_SECURITY_HIGH - 1000);
         return filter;
-    }
-    
-    @Bean
-    public DeviceResolver blDeviceResolver() {
-        return new LiteDeviceResolver();
-    }
-
-    @Bean
-    @ConditionalOnTemplating
-    public List<SeoPropertyGenerator> blSeoPropertyGenerators(@Qualifier("blBasicSeoPropertyGenerator") BasicSeoPropertyGeneratorImpl basicSeo) {
-        List<SeoPropertyGenerator> generators = new ArrayList<>();
-        generators.add(basicSeo);
-        return generators;
     }
 
     @Bean
